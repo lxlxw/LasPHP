@@ -19,13 +19,19 @@ try {
 |
 */
 
-$app = new Laravel\Lumen\Application(
+$app = new \App\Http\Core\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+if (env('APP_DOWN', false)) {
+    $app->response(1000, 'server down.')->send();
+    exit;
+}
 
-// $app->withEloquent();
+$app->configure('common');
+
+$app->withFacades();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +65,10 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
+$app->middleware([
+    App\Http\Middleware\RequestMiddleware::class,
+]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +80,7 @@ $app->singleton(
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
+$app->register(App\Providers\RequestServiceProvider::class);
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
@@ -92,9 +95,8 @@ $app->singleton(
 | can respond to, as well as the controllers that may handle them.
 |
 */
-
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__.'/../app/Http/Core/Routes.php';
 });
 
 return $app;
