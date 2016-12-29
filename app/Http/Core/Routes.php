@@ -21,6 +21,8 @@ $app->match(['GET', 'POST'],
         }
         $app->setSubLogsPath($module.'/');
         $app->setParams();
+        
+        //TODO: add middleware
         //$app->appAuthPermission();
         
         return call_user_func_array(array (new $classname($app), $action), []);
