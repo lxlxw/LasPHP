@@ -13,7 +13,6 @@ switch (env('APP_ENV', 'local')) {
             //log根目录存放路径
             'log_file_dir' => '/home/www/log/',
         );
-
         break;
     case 'tests' :
         $common = array(
@@ -23,15 +22,6 @@ switch (env('APP_ENV', 'local')) {
             'log_file_dir' => '/home/www/log/',
         );
         break;
-    case 'gray':
-        $common = array(
-            //sign open & close
-            'issign' => true,
-            //log根目录存放路径
-            'log_file_dir' => '/home/www/log/',
-        );
-
-        break;
     case 'production' :
         $common = array(
             //sign open & close
@@ -39,7 +29,7 @@ switch (env('APP_ENV', 'local')) {
             //log根目录存放路径
             'log_file_dir' => '/home/www/log/',
         );
-          break;
+        break;
     default :
         $common = array(
             //sign open & close
@@ -47,7 +37,6 @@ switch (env('APP_ENV', 'local')) {
             //log根目录存放路径
             'log_file_dir' => '/home/www/log/',
         );
-
         break;
 }
 
