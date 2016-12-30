@@ -105,6 +105,19 @@ class Model extends LumenModel {
     {
         //TODO:
     }
+    
+    /**
+     * 批量插入，主键重复修改部分字段值
+     * @param array $attributes 插入记录二维数组
+     * @param array $columns 如果主键重复需要修改的字段
+     * @return Ambigous <number, \Illuminate\Database\mixed> 插入结果
+     */
+    public function insertOrUpdate(array $attributes, array $columns= [])
+    {
+        $query = $parameters = '';
+        //TODO:
+        return $this->getConnection()->insert($query, $parameters);
+    }
         
 
 
