@@ -223,13 +223,13 @@ class Application extends LumenApplication {
     
     /**
      * 将json格式字符串的请求报文解析为数组返回
-     * @param array $p_arrParam 请求的参数
-     * @param string $p_strAppKey 私钥
+     * @param array $param 请求的参数
+     * @param string $appKey 私钥
      * @return mixed
      */
-    public function analysisRequestParam($p_arrParam, $p_strAppKey)
+    public function analysisRequestParam($param, $appKey)
     {
-        return RequestAnalysis::analysisRequestParam($p_arrParam, $p_strAppKey);   
+        return RequestAnalysis::analysisRequestParam($param, $appKey);   
     }
 
 	/**
