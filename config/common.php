@@ -9,7 +9,7 @@ switch (env('APP_ENV', 'local')) {
     case 'local' :
         $common = array(
             //sign open & close
-        	'issign' => true,
+        	'issign' => false,
             //log根目录存放路径
             'log_file_dir' => '/home/www/log/',
         );
@@ -33,7 +33,7 @@ switch (env('APP_ENV', 'local')) {
     default :
         $common = array(
             //sign open & close
-            'issign' => true,
+            'issign' => false,
             //log根目录存放路径
             'log_file_dir' => '/home/www/log/',
         );
