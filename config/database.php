@@ -16,7 +16,7 @@ switch (env('APP_ENV', 'local')) {
                     'database' => 'test',
                     'username' => 'root',
                     'password' => '',
-                    'prefix' => 'km_tbl_',
+                    'prefix' => 'tb_',
                 ],
             ],
             // 缓存配置
