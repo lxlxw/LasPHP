@@ -108,14 +108,63 @@ class Model extends LumenModel {
     
     /**
      * 批量插入，主键重复修改部分字段值
+     * 
      * @param array $attributes 插入记录二维数组
      * @param array $columns 如果主键重复需要修改的字段
      * @return Ambigous <number, \Illuminate\Database\mixed> 插入结果
      */
     public function insertOrUpdate(array $attributes, array $columns= [])
     {
-        $query = $parameters = '';
-        //TODO:
+        $parameters = [];
+        $insertSql = $updateSql = "";
+        if(empty($attributes))
+            return false;
+        $keys = array_keys(current($attributes));
+        foreach ($attributes as $attribute) {
+            $row = "";
+            foreach ($keys as $key) {
+                $row.= ", ?";
+                $parameters[] = $attribute[$key];
+            }
+            $insertSql .= ", (".substr($row, 1).")";
+        }
+        if ($columns) {
+            foreach ($columns as $key => $column) {
+                if (is_numeric($key)) {
+                    $updateSql .= ", {$column}=VALUES({$column})";
+                } else {
+                    $updateSql .= ", {$key}={$column}";
+                }
+            }
+        }
+        $query = "INSERT INTO " . $this->getConnection()->getTablePrefix() . $this->table;
+        $query.= " (" . implode(',', $keys) . ") ";
+        $query.= " VALUES " . substr($insertSql, 1);
+        if ($updateSql) {
+            $query.= " ON DUPLICATE KEY UPDATE ".substr($updateSql, 1);
+        }
+        return $this->getConnection()->insert($query, $parameters);
+    }
+    
+    /**
+     * 插入记录，如果记录主键已存在，则忽略
+     * 
+     * @param array $attribute 插入记录关联数组
+     * @return Ambigous <boolean, \Illuminate\Database\mixed>
+     */
+    public function insertOrIgnore(array $attribute)
+    {
+        $columns = $parameters = [];
+        $bindingSql = "";
+        foreach ($attribute as $key => $val) {
+            $bindingSql.= ", ?";
+            $columns[] = $key;
+            $parameters[] = $val;
+        }
+        $query = "INSERT IGNORE INTO " . $this->getConnection()->getTablePrefix() . $this->table;
+        $query.= " (" . implode(',', $columns) . ") ";
+        $query.= " VALUES (" . substr($bindingSql, 1) . ")";
+    
         return $this->getConnection()->insert($query, $parameters);
     }
         
