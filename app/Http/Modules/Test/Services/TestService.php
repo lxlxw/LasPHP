@@ -19,7 +19,7 @@ class TestService extends Service
      */
     public function test($p_arrParam)
     {
-        $this->_redis = RedisOp::getInstance('default');
+        $this->_redis = RedisOp::getInstance('default'); 
         
         $ret = $this->_redis->get($p_arrParam['id']);
         if ($ret !== false) {
