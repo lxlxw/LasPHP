@@ -103,7 +103,55 @@ class Model extends LumenModel {
      */
     public function multiwhere(array $conditions = [], Builder $p_query = null)
     {
-        //TODO:
+        if (!$p_query) {
+            $query = $this->newQuery();
+        } else {
+            $query = $p_query;
+        }
+        foreach ($conditions as $key => $condition) {
+            if (!empty($condition)) {
+                if ($key === 'raw') {
+                    if (count($condition) > 1) {
+                        $query->setQuery($query->getQuery()->whereRaw($condition[0], $condition[1]));
+                    } else {
+                        $query->setQuery($query->getQuery()->whereRaw($condition[0]));
+                    }
+                } else {
+                    if ($condition[0] === 'in' && is_array($condition[1])) {
+                        if (count($condition[1]) > 1) {
+                            $query->setQuery($query->getQuery()->whereIn($condition[1][0], $condition[1][1]));
+                        } else {
+                            $query->setQuery($query->getQuery()->whereIn($this->primaryKey, $condition[1][0]));
+                        }
+                    } elseif ($condition[0] === 'or' && is_array($condition[1])) {
+                        if (count($condition[1]) > 2) {
+                            $query->setQuery($query->getQuery()->orWhere($condition[1][0], $condition[1][1], $condition[1][2]));
+                        } else {
+                            $query->setQuery($query->getQuery()->orWhere($condition[1][0], $condition[1][1]));
+                        }
+                    } elseif ($condition[0] === 'not in' && is_array($condition[1])) {
+                        if (count($condition[1]) > 1) {
+                            $query->setQuery($query->getQuery()->whereNotIn($condition[1][0], $condition[1][1]));
+                        } else {
+                            $query->setQuery($query->getQuery()->whereNotIn($this->primaryKey, $condition[1][0]));
+                        }
+                    } elseif ($condition[0] === 'between' && is_array($condition[1])) {
+                        if (count($condition[1]) > 1) {
+                            $query->setQuery($query->getQuery()->whereBetween($condition[1][0], $condition[1][1]));
+                        } else {
+                            $query->setQuery($query->getQuery()->whereBetween($this->primaryKey, $condition[1][0]));
+                        }
+                    } else {
+                        if (count($condition) > 2) {
+                            $query->setQuery($query->getQuery()->where($condition[0], $condition[1], $condition[2]));
+                        } else {
+                            $query->setQuery($query->getQuery()->where($condition[0], $condition[1]));
+                        }
+                    }
+                }
+            }
+        }
+        return $query;
     }
     
     /**
