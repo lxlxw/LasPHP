@@ -141,6 +141,12 @@ class Model extends LumenModel {
                         } else {
                             $query->setQuery($query->getQuery()->whereBetween($this->primaryKey, $condition[1][0]));
                         }
+                    } elseif ($condition[0] === 'not between' && is_array($condition[1])) {
+                        if (count($condition[1]) > 1) {
+                            $query->setQuery($query->getQuery()->whereNotBetween($condition[1][0], $condition[1][1]));
+                        } else {
+                            $query->setQuery($query->getQuery()->whereNotBetween($this->primaryKey, $condition[1][0]));
+                        }
                     } else {
                         if (count($condition) > 2) {
                             $query->setQuery($query->getQuery()->where($condition[0], $condition[1], $condition[2]));
