@@ -23,7 +23,7 @@ switch (env('APP_ENV', 'local')) {
             'redis' => [
                 'cluster' => false,
                 'default' => [
-                    'host'     => '127.0.0.1',
+                    'host'     => '192.168.33.10',
                     'port'     => 6379,
                     'database' => 0,
                     'password' => null

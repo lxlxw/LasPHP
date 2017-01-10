@@ -35,7 +35,6 @@ class RedisOp{
     public function set($key, $value, $expire = 0)
     {
         $pipe = $this->predis->multi(\Redis::PIPELINE);
-        // 永不超时
         if($expire == 0){
             $pipe->set($key, $value);
         }else{
