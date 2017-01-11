@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Core\BaseModel;
+namespace App\Http\Core;
 
 use Illuminate\Database\Eloquent\Model AS LumenModel;
 use Illuminate\Database\Eloquent\Builder;

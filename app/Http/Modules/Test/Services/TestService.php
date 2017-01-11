@@ -6,6 +6,7 @@ namespace App\Http\Modules\Test\Services;
 
 use App\Http\Core\Service;
 use App\Http\Common\RedisOp;
+use App\Http\Modules\Test\Models\TestModel;
 
 class TestService extends Service
 {
@@ -15,7 +16,6 @@ class TestService extends Service
     public function __construct()
     {
         $this->_redis = RedisOp::getInstance('default');
-        var_dump($this->_redis);
     }
     
     /**
@@ -25,11 +25,13 @@ class TestService extends Service
      */
     public function test($p_arrParam)
     {
-        
         $ret = $this->_redis->get($p_arrParam['id']);
-        if (false === $ret) {
-            //TODO: db class
-        }
+        if (!empty($ret))
+            return $ret;
+        
+        //TODO: db class
+        $arr = (new TestModel())->getTestByID($p_arrParam);
+        var_dump($arr);exit;
         
         
         if($p_arrParam['id'] != 1){
