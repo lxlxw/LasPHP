@@ -36,7 +36,7 @@ class TestService extends Service
         }
         $this->_redis->set($arr['id'], $arr['name'], 300);
         
-        return ['name' => $arr['name']];
+        return $arr['name'];
     }
 
 }
