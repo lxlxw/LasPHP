@@ -26,19 +26,17 @@ class TestService extends Service
     public function test($p_arrParam)
     {
         $ret = $this->_redis->get($p_arrParam['id']);
-        if (!empty($ret))
+        if ($ret !== false) {
             return $ret;
-        
-        //TODO: db class
+        }
         $arr = (new TestModel())->getTestByID($p_arrParam);
-        var_dump($arr);exit;
-        
-        
-        if($p_arrParam['id'] != 1){
+        if(false === $arr){
             $this->arrError = ['errno' => 1011, 'errmsg'=> 'username not exist.'];
             return false;
         }
-        return ['name' => $ret];
+        $this->_redis->set($arr['id'], $arr['name'], 300);
+        
+        return ['name' => $arr['name']];
     }
 
 }

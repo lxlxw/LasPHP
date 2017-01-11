@@ -11,11 +11,11 @@ switch (env('APP_ENV', 'local')) {
             'connections' => [
                 'kmdbcenter' => [
                     'driver' => 'mysql',
-                    'host' => '127.0.0.1',
+                    'host' => '192.168.33.10',
                     'port' => 3306,
                     'database' => 'test',
                     'username' => 'root',
-                    'password' => '',
+                    'password' => 'root',
                     'prefix' => 'tb_',
                 ],
             ],
