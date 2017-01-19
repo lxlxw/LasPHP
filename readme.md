@@ -21,7 +21,11 @@
 * ServiceProvider形式扩展redis库.
 
 
+### <a id="requirements"></a>环境
 
+* PHP >= 5.6 or newer
+
+* composer依赖
 
 
 
