@@ -23,7 +23,13 @@
 
 ### <a id="requirements"></a>环境
 
-* PHP >= 5.6 or newer
+* PHP >= 5.6.4 or newer
+
+* OpenSSL PHP Extension
+
+* PDO PHP Extension
+
+* Mbstring PHP Extension
 
 * composer依赖
 
