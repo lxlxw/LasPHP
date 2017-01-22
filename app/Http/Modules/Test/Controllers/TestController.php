@@ -29,9 +29,19 @@ class TestController extends Controller
      */
     public function test()
     {
-        //var_dump(1);
         $result = $this->TestService->test($this->arrData);
         return $this->response($this->TestService->arrError['errno'], $this->TestService->arrError['errmsg'], $result);
+    }
+    
+    /**
+     * @method get
+     * 
+     * @return {'errno' : '0', 'errmsg' : 'success'}
+     */
+    public function run()
+    {
+        $result = $this->TestService->run($this->arrData);
+        return $this->response();
     }
 
 }

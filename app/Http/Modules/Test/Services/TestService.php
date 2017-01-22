@@ -38,5 +38,14 @@ class TestService extends Service
         
         return $arr['name'];
     }
-
+    
+    /**
+     * run
+     * 
+     * @return mixed
+     */
+    public function run()
+    {
+        return true;
+    }
 }

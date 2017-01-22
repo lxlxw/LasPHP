@@ -14,6 +14,15 @@ class TestValidation {
             ]
         ];
     }
+    
+    public static function run() {
+        return [
+            'rules' => [
+            ],
+            'filters' => [
+            ]
+        ];
+    }
 
 
 }
